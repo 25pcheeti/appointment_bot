@@ -46,3 +46,9 @@ kaggle (for data download)
 joblib (model persistence)
 
 See environment.yml or requirements.txt for pinned versions.
+
+## Background & Sprints
+
+For a detailed look at our problem statement, related work, and scope of 
+Sprints 1 & 2, see 
+[docs/00_project_background.md](docs/00_project_background.md).
