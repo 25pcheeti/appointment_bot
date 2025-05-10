@@ -1,61 +1,48 @@
-# ai_appointment_bot
+# Appointment Bot
 
-<a target="_blank" href="https://cookiecutter-data-science.drivendata.org/">
-    <img src="https://img.shields.io/badge/CCDS-Project%20template-328F97?logo=cookiecutter" />
-</a>
+An end‑to‑end data‑science pipeline that downloads medical no‑show data, 
+cleans & featurizes it, trains a logistic‑regression model to predict 
+missed appointments, and produces evaluation figures.
 
-AI-driven appointment-scheduling and no-show prediction system that automates customer interactions for clinics and small businesses.
+---
 
-## Project Organization
+## 🚀 Quickstart
 
-```
-├── LICENSE            <- Open-source license if one is chosen
-├── Makefile           <- Makefile with convenience commands like `make data` or `make train`
-├── README.md          <- The top-level README for developers using this project.
-├── data
-│   ├── external       <- Data from third party sources.
-│   ├── interim        <- Intermediate data that has been transformed.
-│   ├── processed      <- The final, canonical data sets for modeling.
-│   └── raw            <- The original, immutable data dump.
-│
-├── docs               <- A default mkdocs project; see www.mkdocs.org for details
-│
-├── models             <- Trained and serialized models, model predictions, or model summaries
-│
-├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
-│                         the creator's initials, and a short `-` delimited description, e.g.
-│                         `1.0-jqp-initial-data-exploration`.
-│
-├── pyproject.toml     <- Project configuration file with package metadata for 
-│                         appointment_bot and configuration for tools like black
-│
-├── references         <- Data dictionaries, manuals, and all other explanatory materials.
-│
-├── reports            <- Generated analysis as HTML, PDF, LaTeX, etc.
-│   └── figures        <- Generated graphics and figures to be used in reporting
-│
-├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
-│                         generated with `pip freeze > requirements.txt`
-│
-├── setup.cfg          <- Configuration file for flake8
-│
-└── appointment_bot   <- Source code for use in this project.
-    │
-    ├── __init__.py             <- Makes appointment_bot a Python module
-    │
-    ├── config.py               <- Store useful variables and configuration
-    │
-    ├── dataset.py              <- Scripts to download or generate data
-    │
-    ├── features.py             <- Code to create features for modeling
-    │
-    ├── modeling                
-    │   ├── __init__.py 
-    │   ├── predict.py          <- Code to run model inference with trained models          
-    │   └── train.py            <- Code to train models
-    │
-    └── plots.py                <- Code to create visualizations
-```
+### 1. Clone & activate
+```bash
+git clone https://github.com/25pcheeti/appointment_bot.git
+cd appointment_bot
+conda env create -f environment.yml   # or: python3 -m venv .venv && 
+source .venv/bin/activate
+pip install -r requirements.txt
 
---------
+### 2. Download & preprocess dat
+python src/data/download_dataset.py           # pulls raw CSV from Kaggle
+python -m appointment_bot.features.build_features
+Processed data will land in data/processed/noshow_clean.csv
 
+### 3. Train & evaluate
+python src/models/train_model.py
+Trains a logistic regression
+
+Saves model to models/logreg.pkl
+
+Writes ROC curve to reports/figures/roc_curve.png
+
+### 4. Run inference
+python -m appointment_bot.modeling.predict \
+  --model models/logreg.pkl \
+  --input data/processed/noshow_clean.csv
+
+🛠️ Dependencies
+Python >= 3.9
+
+pandas, numpy, scikit‑learn, matplotlib, seaborn
+
+python‑dotenv, loguru
+
+kaggle (for data download)
+
+joblib (model persistence)
+
+See environment.yml or requirements.txt for pinned versions.
