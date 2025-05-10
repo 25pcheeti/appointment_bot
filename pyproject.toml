@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "appointment_bot"
+version = "0.0.1"
+description = "AI-driven appointment-scheduling and no-show prediction system that automates customer interactions for clinics and small businesses."
+authors = [
+  { name = "Pranav Cheeti" },
+]
+license = { file = "LICENSE" }
+readme = "README.md"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License"
+]
+requires-python = ">=3.8"
+
+
+[tool.ruff]
+line-length = 99
+src = ["appointment_bot"]
+include = ["pyproject.toml", "appointment_bot/**/*.py"]
+
+[tool.ruff.lint]
+extend-select = ["I"]  # Add import sorting
+
+[tool.ruff.lint.isort]
+known-first-party = ["appointment_bot"]
+force-sort-within-sections = true
+
