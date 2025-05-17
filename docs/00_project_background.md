@@ -1,5 +1,4 @@
 Data Science Lifecycle Option Sprint 1
-
 Problem Statement and Significance
 In today’s fast-paced world, many businesses like restaurants, dental 
 offices, and doctor offices face big challenges when it comes to managing 
@@ -84,9 +83,7 @@ I already have the technical skills to develop AI chatbots and voice
 callers so there doesn’t need to be a technical skills development plan 
 for this project.
 
-
 Data Science Lifecycle Option Sprint 2
-
 This section of the project involves continuing to focus on the AI system 
 for automating customer interactions, but specifically the "Medical 
 Appointment No Shows" dataset from Kaggle in order to better figure out 
@@ -154,6 +151,8 @@ Categorical
 Whether the patient did not show up (Yes or No)
 
 
+
+
 Data cleaning and preprocessing
 The images below show the importing steps as well as the data cleaning and 
 organization steps as well as the output to check if there are any missing 
@@ -185,6 +184,7 @@ Logistic Regression for interpretability.
 Random Forest for handling non-linear relationships.
 
 
+
 Model evaluation and comparison
 I evaluated both models using accuracy, precision, recall, and F1 score, 
 comparing performance to document strengths and weaknesses:
@@ -192,9 +192,13 @@ Metrics: Applied confusion matrices, precision, recall, and F1 scores for
 comprehensive evaluation.
 
 
+
+
+
 All of the Outputs for the Segments of Code
 For most of the charts, yes means 1 and no means 0, and for the gender 
 chart Female is 0 and Male is 1.
+
 
 
 Addressing Project Alignment and Limitations
@@ -216,4 +220,198 @@ in all, the models that were developed from the dataset can be implemented
 into the chatbot in order to predict no-shows as well as optimize 
 appointment scheduling resulting in improved operational efficiency as 
 well as improved customer satisfaction.
+
+Data Science Lifecycle Option Sprint 3
+
+Executive Summary
+In this sprint, I put my focus on optimizing as well as evaluating several 
+predictive models to effectively predict patient no-shows for medical 
+appointments. By utilizing a comprehensive dataset of over 100,000 
+entries, I was able to refine Random Forest, Logistic Regression, and 
+Gradient Boosting models. All in all, the evaluation conveyed that Random 
+Forest is the most optimal model for this set of data as it had the 
+highest overall accuracy while offering significant potential for 
+improving appointment management efficiency, reducing operational costs, 
+and enhancing patient satisfaction for healthcare providers.
+
+
+Problem Statement and Business Context
+There is a problem where healthcare providers such as dental and doctor's 
+offices often experience appointment no-shows which lead to revenue 
+losses, scheduling inefficiencies, and reduced availability for other 
+patients. Usually, these offices rely a lot on human operators for booking 
+appointments which leads to increased operational costs and limited 
+availability outside normal business hours. As a result, addressing 
+no-shows through predictive modeling can significantly improve efficiency, 
+reduce costs, and ensure better resource allocation.
+
+Methodology
+
+(Data Preparation)
+To begin with, I used the "Medical Appointment No Shows" dataset from 
+Kaggle which included patient demographic details, appointment scheduling 
+times, and no-show outcomes. After this, the dataset was cleaned and 
+preprocessed, with date fields converted to epoch timestamps, categorical 
+variables encoded numerically, and irrelevant identifiers removed to 
+improve model accuracy.
+
+(Feature Engineering)
+To improve the predictive power of my models, I created several new 
+features from the original data:
+Lead time (in days): The number of days between when a patient schedules 
+their appointment as well as the actual appointment date.
+This helps capture whether longer waiting periods increase no-shows or 
+not.
+
+Appointment day and hour: The specific day of the week and the hour of the 
+day when appointments are being scheduled.
+This identifies patterns where certain days or even times might influence 
+attendance.
+
+Patient age groups: Categorizing patients into groups like young (0–18 
+years), adult (19–65 years), and senior (66+ years).
+Different age groups typically have varying attendance behaviors.
+
+Weekend indicator (binary encoding): A simple binary feature indicating 
+whether an appointment is scheduled on a weekend (Saturday or Sunday) or a 
+weekday.
+Weekends may have different attendance rates compared to weekdays.
+
+(Modeling Approaches)
+I evaluated three machine learning models to determine which one best 
+predicts appointment no-shows better:
+1. Random Forest
+Random forests build multiple decision trees and combine their predictions 
+to enhance accuracy.
+I optimized the following hyperparameters using GridSearchCV (a systematic 
+way of testing different combinations):
+Number of estimators: Number of trees in the forest ([100, 200]).
+Maximum depth: The maximum number of splits each tree can make ([None 
+(unlimited), 10, 20]).
+Minimum samples split: The minimum number of data points required before a 
+tree splits further ([2, 5]).
+
+2. Logistic Regression
+Logistic regression predicts probabilities for binary outcomes, which is 
+ideal for yes/no predictions such as no-shows.
+
+The hyperparameters I tuned included:
+Regularization strength (C values): Controls overfitting by penalizing 
+overly complex models ([0.01, 0.1, 1, 10]).
+
+Class weighting: Whether to treat classes equally or give more weight to 
+underrepresented outcomes ("balanced" vs. "unbalanced").
+
+Penalty types: Method of regularization to simplify the model ("l1" which 
+reduces less important features, and "l2" which penalizes large 
+coefficients).
+
+3. Gradient Boosting
+Gradient boosting combines multiple weak decision trees sequentially, each 
+correcting the errors of the previous tree, resulting in improved 
+predictive accuracy.
+
+Hyperparameters I optimized:
+Learning rates: Controls how quickly the model adapts ([0.01, 0.1]).
+Maximum depths: Limits how complex each individual tree is ([3, 5, 7]).
+Number of estimators: Number of boosting stages or trees ([100, 200]).
+Model Evaluation and Selection
+
+After optimization, I evaluated each model using accuracy, precision, 
+recall, and F1-score:
+
+Random Forest Results (Best performing model):
+Best Parameters: {'max_depth': None, 'min_samples_split': 2, 
+'n_estimators': 100}
+Accuracy: 80% (Overall correct prediction rate)
+
+No-shows:
+Precision: 51% (51% of predicted no-shows were actually correct)
+Recall: 19% (19% of actual no-shows were correctly identified)
+F1-score: 27% (Balanced metric combining precision and recall)
+
+Shows:
+Precision: 82%, 
+Recall: 95%, 
+F1-score: 88%
+
+Logistic Regression Results:
+Best Parameters: {'C': 0.01, 'class_weight': 'balanced', 'penalty': 'l1'}
+Accuracy: 67%
+
+No-shows: Precision: 31%, 
+Recall: 55%, 
+F1-score: 40%
+
+Shows: Precision: 86%, 
+Recall: 69%, 
+F1-score: 77%
+
+Gradient Boosting Results:
+Best Parameters: {'learning_rate': 0.1, 'max_depth': 7, 'n_estimators': 
+200}
+Accuracy: 80%
+
+No-shows: Precision: 57%, 
+Recall: 8%, 
+F1-score: 15%
+
+Shows: Precision: 81%, 
+Recall: 98%, 
+F1-score: 89%
+
+Selected Model:
+The Random Forest demonstrated the most balanced performance, as it 
+offered strong overall accuracy as well as reliable predictive capability, 
+making it the most practical choice for deployment.
+
+Implementation Strategy and Business Value
+As the Random Forest model was the best, it can be integrated into 
+existing appointment management systems through API connections. By 
+accurately predicting appointment no-shows, healthcare providers can now 
+proactively adjust schedules, reduce idle time, and even optimize patient 
+flow. This implementation is promising because it offers significant cost 
+savings by minimizing unused appointment slots as well as improving staff 
+productivity. On top of that, patient satisfaction can be greatly enhanced 
+by offering timely and more flexible scheduling options.
+
+Ethical Considerations and Limitations
+
+(Ethical Implications)
+Deploying predictive models in healthcare requires a lot of transparency 
+with regards to how predictions affect patient interactions as well as 
+appointment availability. Patients should be informed if predictive 
+algorithms influence scheduling flexibility or priority. Also, they should 
+know if their personal data is being used with AI or not, which they 
+should be able to choose to opt into or avoid depending on their personal 
+preferences.
+
+(Potential Biases)
+The models may inherently reflect biases present in the dataset, 
+particularly in demographic segments such as age groups, neighborhoods, or 
+gender. For example, if certain neighborhoods systematically have higher 
+no-show rates, the model may unintentionally reinforce scheduling biases 
+against these communities. Regular audits and updates are necessary to 
+mitigate these biases. For example, if there are higher no-shows with 
+indians like me, the model may unintentionally have extra scheduling bias 
+for no-shows being indians.
+
+(Limitations and Edge Cases)
+The dataset lacked detailed reasons for patient no-shows as it did not 
+include certain events, such as emergencies or transportation issues, 
+which limits the precision of model predictions. Additionally, text-based 
+communication data (like SMS or voice interactions) was not available in 
+the dataset, limiting the model's ability to predict based on real-time 
+interactions or reminders.
+
+Conclusion
+Through meticulous tuning as well as evaluation of several predictive 
+modeling techniques, the Random Forest classifier emerged as the most 
+effective tool for addressing the significant challenge of appointment 
+no-shows in healthcare settings. As a result, from this conclusion, 
+implementing this predictive system can substantially improve operational 
+efficiency, reduce costs, and enhance patient satisfaction by enabling 
+more informed, proactive scheduling decisions as there is now more data 
+available to make those types of decisions.
+
 

@@ -1,54 +1,91 @@
-# Appointment Bot
+# Appointment Bot Project
 
-An end‑to‑end data‑science pipeline that downloads medical no‑show data, 
-cleans & featurizes it, trains a logistic‑regression model to predict 
-missed appointments, and produces evaluation figures.
-
----
+This repository contains a data science project designed to automate and 
+optimize customer interactions and appointment scheduling, specifically 
+predicting no-shows for medical appointments. The solution leverages 
+predictive modeling and AI-driven approaches.
 
 ## 🚀 Quickstart
 
-### 1. Clone & activate
 ```bash
 git clone https://github.com/25pcheeti/appointment_bot.git
 cd appointment_bot
-conda env create -f environment.yml   # or: python3 -m venv .venv && 
-source .venv/bin/activate
+conda env create -f environment.yml   # Alternatively:
+# python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
+```
 
-### 2. Download & preprocess dat
-python src/data/download_dataset.py           # pulls raw CSV from Kaggle
+### 📥 Data Acquisition & Preprocessing
+
+```bash
+python src/data/download_dataset.py           # Fetches raw CSV from 
+Kaggle
 python -m appointment_bot.features.build_features
-Processed data will land in data/processed/noshow_clean.csv
+# Processed data output: data/processed/noshow_clean.csv
+```
 
-### 3. Train & evaluate
+### ⚙️ Model Training & Evaluation
+
+**Baseline Logistic Regression:**
+
+```bash
 python src/models/train_model.py
-Trains a logistic regression
+```
 
-Saves model to models/logreg.pkl
+* Trains Logistic Regression
+* Saves model: `models/logreg.pkl`
+* ROC curve: `reports/figures/roc_curve.png`
 
-Writes ROC curve to reports/figures/roc_curve.png
+**Advanced Model Tuning (Sprint 3 addition):**
 
-### 4. Run inference
+```bash
+python src/models/tune_models.py
+```
+
+* Optimizes and evaluates Random Forest, Logistic Regression, Gradient 
+Boosting
+* Saves best model: `models/rf_tuned.pkl`
+* ROC curves and metrics in `reports/figures/`
+
+### 🔮 Run Inference
+
+```bash
 python -m appointment_bot.modeling.predict \
-  --model models/logreg.pkl \
+  --model models/rf_tuned.pkl \
   --input data/processed/noshow_clean.csv
+```
 
-🛠️ Dependencies
-Python >= 3.9
+## 🛠️ Dependencies
 
-pandas, numpy, scikit‑learn, matplotlib, seaborn
+* **Python:** ≥ 3.9
+* **Libraries:**
 
-python‑dotenv, loguru
+  * pandas, numpy, scikit‑learn, matplotlib, seaborn
+  * python‑dotenv, loguru
+  * kaggle (data acquisition)
+  * joblib (model persistence)
 
-kaggle (for data download)
+Check `environment.yml` or `requirements.txt` for exact versions.
 
-joblib (model persistence)
+## 📚 Project Background & Sprints
 
-See environment.yml or requirements.txt for pinned versions.
+Detailed information on the problem statement, related work, 
+methodologies, and the comprehensive coverage of **Sprints 1, 2, & 3** are 
+documented in:
 
-## Background & Sprints
+👉 [docs/00\_project\_background.md](docs/00_project_background.md)
 
-For a detailed look at our problem statement, related work, and scope of 
-Sprints 1 & 2, see 
-[docs/00_project_background.md](docs/00_project_background.md).
+### Sprint Overview
+
+* **Sprint 1:** Problem framing, initial data acquisition, and scope 
+definition
+* **Sprint 2:** Data cleaning, visualization, initial feature engineering, 
+baseline modeling
+* **Sprint 3:** Enhanced feature engineering, hyperparameter tuning, 
+detailed evaluation of multiple models, ethical considerations, and model 
+deployment strategy
+
+---
+
+Feel free to reach out with questions or suggestions!
+
